@@ -13,8 +13,8 @@ class Piece:
 	def validate(self, board, k):
 		return True
 
-	def draw(self, position, d_surf):
-		pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, position, DEFAULT_PIECE_SIZE)
+	def draw(self, d_surf, pos):
+		pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, pos, DEFAULT_PIECE_SIZE)
 
 
 class LineBlockerPiece(Piece):
@@ -45,6 +45,5 @@ class AdjacencyPiece(Piece):
 		self.num_adjacencies = num_adjacencies
 
 	def validate(self, board, k):
-		adjacent_pieces = [board.spaces.get(_k) for _k in board.get_adjacent_spaces(k) if board.spaces.get(_k).isNotEmpty()]
-
+		adjacent_pieces = [_k for _k in board.get_adjacent_spaces(k) if board.spaces.get(_k).isNotEmpty()]
 		return len(adjacent_pieces) == self.num_adjacencies
