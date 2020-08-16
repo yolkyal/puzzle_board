@@ -16,9 +16,6 @@ class TestBoard(unittest.TestCase):
 		
 		self.board_space_specification = board.BoardSpaceSpecification(self.start_x, self.start_y, self.col_width, self.row_height)
 
-	def testInit(self):
-		self.assertEqual(self.num_cols * self.num_rows, len(self.board.spaces))
-
 	def testGetAdjacentKeys(self):
 		expected_keys = [(0, 0), (1, 0), (2, 0), (0, 1), (2, 1), (0, 2), (1, 2), (2, 2)]
 		self.assertEqual(set(expected_keys), set(self.board.get_adjacent_keys((1, 1))))
