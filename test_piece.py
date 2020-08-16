@@ -25,11 +25,10 @@ class TestPiece(unittest.TestCase):
 	@mock.patch('pygame.draw.circle')
 	def testBasicPieceDraw(self, mock_draw_circle):
 		basic_piece = piece.Piece()
-		pos = (0, 0)
 
-		basic_piece.draw(self.d_surf, pos)
+		basic_piece.draw(self.d_surf, (0, 0))
 
-		mock_draw_circle.assert_called_once_with(self.d_surf, piece.DEFAULT_PIECE_COLOUR, pos, piece.DEFAULT_PIECE_SIZE)
+		mock_draw_circle.assert_called_once_with(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.DEFAULT_PIECE_SIZE)
 
 	def testLineBlockerPieceValidate(self):
 		line_blocker_piece_up = piece.LineBlockerPiece([UP])
