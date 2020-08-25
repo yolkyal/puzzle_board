@@ -62,7 +62,3 @@ class TestBoard(unittest.TestCase):
 
 		self.assertEqual(expected_rect_calls, mock_draw_rect.call_args_list)
 		piece.draw.assert_called_once_with(d_surf, (self.start_x + self.col_width / 2, self.start_y + self.row_height / 2))
-
-
-if __name__ == '__main__':
-	unittest.main()

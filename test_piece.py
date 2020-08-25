@@ -46,6 +46,23 @@ class TestPiece(unittest.TestCase):
 		self.assertTrue(line_blocker_piece_right.validate(self.board, (1, 0)))
 		self.assertFalse(line_blocker_piece_left.validate(self.board, (1, 1)))
 
+	@mock.patch('pygame.draw.line')
+	@mock.patch('pygame.draw.circle')
+	def testLineBlockerPieceDraw(self, mock_draw_circle, mock_draw_line):
+		line_blocker_piece_up_right = piece.LineBlockerPiece([UP, DOWN, LEFT, RIGHT])
+
+		line_blocker_piece_up_right.draw(self.d_surf, (0, 0))
+
+		expected_line_calls = [
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, -piece.DEFAULT_PIECE_SIZE), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, piece.DEFAULT_PIECE_SIZE), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (-piece.DEFAULT_PIECE_SIZE, 0), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (piece.DEFAULT_PIECE_SIZE, 0), piece.DEFAULT_PIECE_SIZE / 2)
+		]
+
+		mock_draw_circle.assert_called_once_with(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.DEFAULT_PIECE_SIZE)
+		self.assertEqual(expected_line_calls, mock_draw_line.call_args_list)
+
 	def testAdjacencyPieceValidate(self):
 		adjacency_piece0 = piece.AdjacencyPiece(0)
 		adjacency_piece1 = piece.AdjacencyPiece(1)
@@ -57,6 +74,16 @@ class TestPiece(unittest.TestCase):
 		self.assertFalse(adjacency_piece0.validate(self.board, (0, 0)))
 		self.assertTrue(adjacency_piece1.validate(self.board, (0, 1)))
 
+	@mock.patch('pygame.draw.circle')
+	def testAdjacencyPieceDraw(self, mock_draw_circle):
+		adjacency_piece2 = piece.AdjacencyPiece(2)
 
-if __name__ == '__main__':
-	unittest.main()
+		adjacency_piece2.draw(self.d_surf, (0, 0))
+		
+		expected_circle_calls = [
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.ADJACENCY_PIECE_RING_SPACING, piece.ADJACENCY_PIECE_RING_WIDTH),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.ADJACENCY_PIECE_RING_SPACING * 2, piece.ADJACENCY_PIECE_RING_WIDTH),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.ADJACENCY_PIECE_RING_SPACING * 3, piece.ADJACENCY_PIECE_RING_WIDTH)
+		]
+
+		self.assertEqual(expected_circle_calls, mock_draw_circle.call_args_list)
