@@ -54,10 +54,10 @@ class TestBoard(unittest.TestCase):
 		self.board.draw(d_surf, self.board_space_specification)
 
 		expected_rect_calls = [
-		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x, self.start_y, self.col_width, self.row_height)),
-		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x + self.col_width, self.start_y, self.col_width, self.row_height)),
-		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x, self.start_y + self.row_height, self.col_width, self.row_height)),
-		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x + self.col_width, self.start_y + self.row_height, self.col_width, self.row_height))
+		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x, self.start_y, self.col_width, self.row_height), board.DEFAULT_BOARD_OUTLINE_WIDTH),
+		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x + self.col_width, self.start_y, self.col_width, self.row_height), board.DEFAULT_BOARD_OUTLINE_WIDTH),
+		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x, self.start_y + self.row_height, self.col_width, self.row_height), board.DEFAULT_BOARD_OUTLINE_WIDTH),
+		mock.call(d_surf, board.DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (self.start_x + self.col_width, self.start_y + self.row_height, self.col_width, self.row_height), board.DEFAULT_BOARD_OUTLINE_WIDTH)
 		]
 
 		self.assertEqual(expected_rect_calls, mock_draw_rect.call_args_list)

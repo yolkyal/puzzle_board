@@ -2,10 +2,12 @@ import pygame
 import constants
 
 
-DEFAULT_PIECE_COLOUR = (50, 50, 50)
+DEFAULT_PIECE_COLOUR = (1, 148, 154)
 DEFAULT_PIECE_SIZE = 10
 ADJACENCY_PIECE_RING_SPACING = 5
 ADJACENCY_PIECE_RING_WIDTH = 2
+HALF_DEFAULT_PIECE_SIZE = int(DEFAULT_PIECE_SIZE / 2)
+DOUBLE_DEFAULT_PIECE_SIZE = int(DEFAULT_PIECE_SIZE * 2)
 
 
 class Piece:
@@ -16,7 +18,7 @@ class Piece:
 		return True
 
 	def draw(self, d_surf, pos):
-		pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, pos, DEFAULT_PIECE_SIZE)
+		pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, (int(pos[0]), int(pos[1])), DEFAULT_PIECE_SIZE)
 
 
 class LineBlockerPiece(Piece):
@@ -44,13 +46,13 @@ class LineBlockerPiece(Piece):
 		super().draw(d_surf, pos)
 
 		if constants.UP in self.blocking_direction_list:
-			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0], pos[1] - DEFAULT_PIECE_SIZE), DEFAULT_PIECE_SIZE / 2)
+			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0], pos[1] - DOUBLE_DEFAULT_PIECE_SIZE), HALF_DEFAULT_PIECE_SIZE)
 		if constants.DOWN in self.blocking_direction_list:
-			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0], pos[1] + DEFAULT_PIECE_SIZE), DEFAULT_PIECE_SIZE / 2)
+			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0], pos[1] + DOUBLE_DEFAULT_PIECE_SIZE), HALF_DEFAULT_PIECE_SIZE)
 		if constants.LEFT in self.blocking_direction_list:
-			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0] - DEFAULT_PIECE_SIZE, pos[1]), DEFAULT_PIECE_SIZE / 2)
+			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0] - DOUBLE_DEFAULT_PIECE_SIZE, pos[1]), HALF_DEFAULT_PIECE_SIZE)
 		if constants.RIGHT in self.blocking_direction_list:
-			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0] + DEFAULT_PIECE_SIZE, pos[1]), DEFAULT_PIECE_SIZE / 2)
+			pygame.draw.line(d_surf, DEFAULT_PIECE_COLOUR, pos, (pos[0] + DOUBLE_DEFAULT_PIECE_SIZE, pos[1]), HALF_DEFAULT_PIECE_SIZE)
 
 
 class AdjacencyPiece(Piece):
@@ -64,4 +66,4 @@ class AdjacencyPiece(Piece):
 
 	def draw(self, d_surf, pos):
 		for i in range(1, self.num_adjacencies + 2):
-			pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, pos, i * ADJACENCY_PIECE_RING_SPACING, ADJACENCY_PIECE_RING_WIDTH)
+			pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, (int(pos[0]), int(pos[1])), i * ADJACENCY_PIECE_RING_SPACING, ADJACENCY_PIECE_RING_WIDTH)

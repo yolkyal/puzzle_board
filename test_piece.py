@@ -54,10 +54,10 @@ class TestPiece(unittest.TestCase):
 		line_blocker_piece_up_right.draw(self.d_surf, (0, 0))
 
 		expected_line_calls = [
-		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, -piece.DEFAULT_PIECE_SIZE), piece.DEFAULT_PIECE_SIZE / 2),
-		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, piece.DEFAULT_PIECE_SIZE), piece.DEFAULT_PIECE_SIZE / 2),
-		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (-piece.DEFAULT_PIECE_SIZE, 0), piece.DEFAULT_PIECE_SIZE / 2),
-		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (piece.DEFAULT_PIECE_SIZE, 0), piece.DEFAULT_PIECE_SIZE / 2)
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, -piece.DEFAULT_PIECE_SIZE*2), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (0, piece.DEFAULT_PIECE_SIZE*2), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (-piece.DEFAULT_PIECE_SIZE*2, 0), piece.DEFAULT_PIECE_SIZE / 2),
+		mock.call(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), (piece.DEFAULT_PIECE_SIZE*2, 0), piece.DEFAULT_PIECE_SIZE / 2)
 		]
 
 		mock_draw_circle.assert_called_once_with(self.d_surf, piece.DEFAULT_PIECE_COLOUR, (0, 0), piece.DEFAULT_PIECE_SIZE)
