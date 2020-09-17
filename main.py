@@ -23,6 +23,8 @@ def main():
 	pygame.display.set_caption('Puzzle Board')
 	d_surf = pygame.display.set_mode(SIZE)
 
+	d_surf.fill(BG_COL)
+
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:

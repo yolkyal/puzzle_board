@@ -1,9 +1,10 @@
 import pygame
+import pygame.gfxdraw
 import constants
 
 
 DEFAULT_PIECE_COLOUR = (1, 148, 154)
-DEFAULT_PIECE_SIZE = 10
+DEFAULT_PIECE_SIZE = 8
 ADJACENCY_PIECE_RING_SPACING = 5
 ADJACENCY_PIECE_RING_WIDTH = 2
 HALF_DEFAULT_PIECE_SIZE = int(DEFAULT_PIECE_SIZE / 2)
@@ -18,7 +19,8 @@ class Piece:
 		return True
 
 	def draw(self, d_surf, pos):
-		pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, (int(pos[0]), int(pos[1])), DEFAULT_PIECE_SIZE)
+		pygame.gfxdraw.aacircle(d_surf, int(pos[0]), int(pos[1]), DEFAULT_PIECE_SIZE, DEFAULT_PIECE_COLOUR)
+		pygame.gfxdraw.filled_circle(d_surf, int(pos[0]), int(pos[1]), DEFAULT_PIECE_SIZE, DEFAULT_PIECE_COLOUR)
 
 
 class LineBlockerPiece(Piece):
@@ -66,4 +68,5 @@ class AdjacencyPiece(Piece):
 
 	def draw(self, d_surf, pos):
 		for i in range(1, self.num_adjacencies + 2):
-			pygame.draw.circle(d_surf, DEFAULT_PIECE_COLOUR, (int(pos[0]), int(pos[1])), i * ADJACENCY_PIECE_RING_SPACING, ADJACENCY_PIECE_RING_WIDTH)
+			pygame.gfxdraw.aacircle(d_surf, int(pos[0]), int(pos[1]), i * ADJACENCY_PIECE_RING_SPACING, DEFAULT_PIECE_COLOUR)
+

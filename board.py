@@ -2,7 +2,7 @@ import pygame
 
 
 DEFAULT_BOARD_SPACE_OUTLINE_COLOUR = (0, 67, 105)
-DEFAULT_BOARD_OUTLINE_WIDTH = 3
+DEFAULT_BOARD_OUTLINE_WIDTH = 1
 
 
 class Board:
@@ -50,7 +50,10 @@ class BoardSpace:
 	def draw(self, d_surf, bss, k):
 		start_x = bss.start_x + k[1] * bss.col_width
 		start_y = bss.start_y + k[0] * bss.row_height
-		pygame.draw.rect(d_surf, DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, (start_x, start_y, bss.col_width, bss.row_height), DEFAULT_BOARD_OUTLINE_WIDTH)
+		end_x = start_x + bss.col_width
+		end_y = start_y + bss.row_height
+
+		pygame.draw.lines(d_surf, DEFAULT_BOARD_SPACE_OUTLINE_COLOUR, True, [(start_x, start_y), (end_x, start_y), (end_x, end_y), (start_x, end_y)], DEFAULT_BOARD_OUTLINE_WIDTH)
 
 		if self.piece:
 			self.piece.draw(d_surf, (start_x + bss.col_width / 2, start_y + bss.row_height / 2))
